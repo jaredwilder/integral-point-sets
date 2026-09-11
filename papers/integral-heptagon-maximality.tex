@@ -1,0 +1,311 @@
+% A height-bound-free method for extending integral point sets, with two applications
+% J. Wilder, 2026-07-25
+%
+% Build:  pdflatex integral-heptagon-maximality.tex   (twice, for refs)
+% Source of record: oracle/library/papers/INTEGRAL-HEPTAGON-MAXIMALITY-2026-07-25.md
+% Every numerical value here is reproduced from the receipts in Section 7; none was typed by hand.
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[margin=1.15in]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\numberwithin{equation}{section}
+
+\newcommand{\dgp}{\dot{d}}
+\newcommand{\Egp}{E_{\mathrm{gp}}}
+
+\begin{document}
+
+\title{A height-bound-free method for extending integral point sets,\\ with two applications}
+\author{J. Wilder}
+\date{\today}
+
+\begin{abstract}
+A planar \emph{integral point set} is a finite set of points with all pairwise Euclidean distances
+integral; it is in \emph{general position} if no three of its points are collinear and no four
+concyclic. Kreisel and Kurz~\cite{KK08} exhibited the first two seven-point examples, of diameters
+$22270$ and $66810$, answering a question of Erd\H{o}s; whether an eight-point example exists is open.
+
+We give an elementary method that decides, for any given integral point set $S$, whether a further
+point lies at integral distance from every point of $S$ --- exhaustively and with no bound on how far
+that point may lie. The observation is that for any point $X$ and any $P_i,P_j\in S$ the quantity
+$c=\lvert XP_i\rvert-\lvert XP_j\rvert$ is an integer with $\lvert c\rvert\le d_{ij}$, a range that
+does not depend on $\lvert X\rvert$; three such constraints determine $X$ by trilateration. The
+resulting search is finite by construction, so no effective height bound is required.
+
+Applying it we prove that both Kreisel--Kurz heptagons are \emph{maximal}: apart from their own
+vertices, no point of the plane lies at integral distance from all seven vertices of either
+configuration. Combining this with the exhaustive range of~\cite{KK08} gives the lower bound
+$\dgp(2,8)>30000$ for the minimum diameter of an integral general-position octagon. We also record a
+cardinality certificate --- if a triangle admits fewer than five admissible extension points then no
+octagon contains it --- and verify it for $394$ triangles.
+\end{abstract}
+
+\maketitle
+
+\section{Definitions and background}
+
+Let $S\subset\mathbb{R}^2$ be finite. $S$ is an \emph{integral point set} if $\lvert PQ\rvert\in
+\mathbb{Z}$ for all $P,Q\in S$, and is in \emph{general position} if no three points of $S$ are
+collinear and no four are concyclic. Write $\dgp(2,n)$ for the minimum diameter of an $n$-point
+integral point set in general position.
+
+The known values are $\dgp(2,n)=1,8,73,174$ for $n=3,4,5,6$, and $\dgp(2,7)=22270$~\cite{KK08}.
+Kreisel and Kurz further report that their diameter-$22270$ configuration is the \emph{only} such
+heptagon of diameter at most $30000$, an exhaustive statement we use in Section~\ref{sec:maximality}.
+
+By the Erd\H{o}s--Anning theorem~\cite{AE45} an integral point set that is not collinear is finite;
+the usual proof is the hyperbola argument we make effective in Section~\ref{sec:method}. Every
+non-collinear integral point set has a \emph{characteristic} $c$, the squarefree part of
+$16\cdot\mathrm{Area}^2$ of any of its triangles, which is the same for all of them~\cite{Kem88};
+both heptagons below have characteristic $2002=2\cdot 7\cdot 11\cdot 13$, and their points
+accordingly lie in $\mathbb{Q}(\sqrt{2002})$.
+
+Throughout, a point of $\mathbb{Q}(\sqrt{2002})^2$ is written $(x,y)$ meaning the real point
+$(x,y\sqrt{2002})$.
+
+\section{The method}\label{sec:method}
+
+Let $S=\{P_0,\dots,P_{m-1}\}$ be an integral point set and let $X$ be any point with $\lvert
+XP_i\rvert\in\mathbb{Z}$ for all $i$.
+
+\begin{lemma}\label{lem:range}
+For any $i\neq j$, the integer $c_j:=\lvert XP_0\rvert-\lvert XP_j\rvert$ satisfies $\lvert
+c_j\rvert\le d_{0j}$.
+\end{lemma}
+
+\begin{proof}
+The triangle inequality applied to $X,P_0,P_j$.
+\end{proof}
+
+The point of Lemma~\ref{lem:range} is that the range of $c_j$ is determined by $S$ alone and is
+\emph{independent of how far $X$ lies from $S$} --- no height bound is needed, and none is assumed
+anywhere below.
+
+Fix a base index $0$ and two further indices $j,k$ with $P_0,P_j,P_k$ not collinear. Put
+$r=\lvert XP_0\rvert$. Translating $P_0$ to the origin, write $u_i=x_i-x_0$, $w_i=y_i-y_0$,
+$e_i=d_{0i}^2-c_i^2$ and $\Delta=u_jw_k-w_ju_k\neq 0$. Expanding $\lvert X-P_i\rvert^2=(r-c_i)^2$
+against $\lvert X\rvert^2=r^2$ gives two equations linear in the coordinates of $X$:
+\begin{align}
+2u_j x + 2c\,w_j y &= e_j + 2rc_j,\\
+2u_k x + 2c\,w_k y &= e_k + 2rc_k,
+\end{align}
+where $c$ is the characteristic. Their solution is affine in $r$:
+\begin{equation}
+x = A + Br,\qquad y = C + Dr,
+\end{equation}
+\begin{equation}
+\begin{aligned}
+A &= \frac{w_ke_j-w_je_k}{2\Delta}, &\qquad B &= \frac{w_kc_j-w_jc_k}{\Delta},\\[2pt]
+C &= \frac{u_je_k-u_ke_j}{2c\Delta}, &\qquad D &= \frac{u_jc_k-u_kc_j}{c\Delta}.
+\end{aligned}
+\end{equation}
+Substituting into $x^2+cy^2=r^2$ yields a quadratic in $r$ with rational coefficients:
+\begin{equation}\label{eq:quadratic}
+(B^2+cD^2-1)\,r^2 + 2(AB+cCD)\,r + (A^2+cC^2) = 0.
+\end{equation}
+
+\begin{theorem}\label{thm:method}
+The set of points at integral distance from all of $P_0,P_j,P_k$ is finite and is enumerated exactly
+by letting $(c_j,c_k)$ range over $[-d_{0j},d_{0j}]\times[-d_{0k},d_{0k}]$ and solving
+\eqref{eq:quadratic} for $r$; each cell contributes at most two candidates.
+\end{theorem}
+
+This is Erd\H{o}s--Anning made effective: the grid is finite by Lemma~\ref{lem:range},
+trilateration from three non-collinear points is injective, and every step is exact rational
+arithmetic. Choosing the base triple to minimise $(2d_{0j}+1)(2d_{0k}+1)$ minimises the cost; for a
+heptagon one takes the vertex incident to the two shortest edges.
+
+\section{The two heptagons}\label{sec:heptagons}
+
+Both configurations have characteristic $2002$. We restate them in the coordinates used here.
+
+\medskip
+\noindent\textbf{H1} (diameter $22270$):
+\[
+\begin{array}{l|rr}
+ & x & y\\\hline
+P_0 & 0 & 0\\
+P_1 & 22270 & 0\\
+P_2 & 26127018/2227 & 932064/2227\\
+P_3 & 245363/17 & 3144/17\\
+P_4 & 17615968/2227 & 238464/2227\\
+P_5 & 56068/17 & 3144/17\\
+P_6 & 19079044/2227 & -54168/2227
+\end{array}
+\]
+\[
+D(\mathrm{H1})=
+\begin{pmatrix}
+    0 & 22270 & 22098 & 16637 &  9248 &  8908 &  8636\\
+22270 &     0 & 21488 & 11397 & 15138 & 20698 & 13746\\
+22098 & 21488 &     0 & 10795 & 14450 & 13430 & 20066\\
+16637 & 11397 & 10795 &     0 &  7395 & 11135 & 11049\\
+ 9248 & 15138 & 14450 &  7395 &     0 &  5780 &  5916\\
+ 8908 & 20698 & 13430 & 11135 &  5780 &     0 & 10744\\
+ 8636 & 13746 & 20066 & 11049 &  5916 & 10744 &     0
+\end{pmatrix}
+\]
+
+\medskip
+\noindent\textbf{H2} (diameter $66810$):
+\[
+\begin{array}{l|rr}
+ & x & y\\\hline
+P_0 & 0 & 0\\
+P_1 & 66810 & 0\\
+P_2 & 7690545/131 & 91800/131\\
+P_3 & 78381054/2227 & 2796192/2227\\
+P_4 & 98596712/2227 & 1148736/2227\\
+P_5 & 91548738/2227 & 162504/2227\\
+P_6 & 3314490/131 & 91800/131
+\end{array}
+\]
+\[
+D(\mathrm{H2})=
+\begin{pmatrix}
+    0 & 66810 & 66555 & 66294 & 49928 & 41238 & 40290\\
+66810 &     0 & 32385 & 64464 & 32258 & 25908 & 52020\\
+66555 & 32385 &     0 & 34191 & 16637 & 33147 & 33405\\
+66294 & 64464 & 34191 &     0 & 34322 & 53244 & 26724\\
+49928 & 32258 & 16637 & 34322 &     0 & 20066 & 20698\\
+41238 & 25908 & 33147 & 53244 & 20066 &     0 & 32232\\
+40290 & 52020 & 33405 & 26724 & 20698 & 32232 &     0
+\end{pmatrix}
+\]
+
+Each was re-verified from its distance matrix alone: all $21$ distances integral and matching, no
+three vertices collinear, no four concyclic.
+
+\section{Maximality}\label{sec:maximality}
+
+\begin{theorem}\label{thm:maximal}
+Let $H$ be either heptagon of Section~\ref{sec:heptagons}. No point of the plane other than the seven
+vertices of $H$ lies at integral distance from all seven vertices. In particular neither heptagon is
+contained in an eight-point integral point set.
+\end{theorem}
+
+\begin{proof}
+Apply Theorem~\ref{thm:method} with the base triple minimising the grid. Every cell was evaluated in
+exact integer arithmetic; each candidate $r$ was accepted only when the quadratic vanished
+identically over $\mathbb{Q}$, and the induced point was then tested for integrality of all seven
+distances. A mandatory correctness gate required each run to recover all six non-base vertices, which
+are themselves solutions; a run failing that gate was discarded rather than reported.
+
+\begin{center}
+\begin{tabular}{llrrrrcr}
+\toprule
+config. & base triple & grid cells & sol. & vertices & \textbf{non-trivial} & gate & time\\
+\midrule
+H1 & $(P_4;P_5,P_6)$ &   136{,}801{,}313 & 6 & 6 & \textbf{0} & 6/6 &  153\,s\\
+H1 & $(P_5;P_4,P_0)$ &   205{,}982{,}337 & 6 & 6 & \textbf{0} & 6/6 &  223\,s\\
+H2 & $(P_4;P_2,P_5)$ & 1{,}335{,}425{,}575 & 6 & 6 & \textbf{0} & 6/6 & 1530\,s\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Total: $1{,}678{,}209{,}225$ cells, no floating-point arithmetic anywhere in the decision path. H1 was
+run twice from independent base triples, which agree.
+\end{proof}
+
+\begin{corollary}\label{cor:bound}
+$\dgp(2,8)>30000$.
+\end{corollary}
+
+\begin{proof}
+Suppose $O$ is an integral general-position $8$-point set of diameter at most $30000$. General
+position is hereditary, so each of the eight $7$-point subsets of $O$ is an integral heptagon in
+general position of diameter at most $30000$. By the exhaustive result of~\cite{KK08} every such
+heptagon is H1. Then $O$ extends H1, contradicting Theorem~\ref{thm:maximal}.
+\end{proof}
+
+Corollary~\ref{cor:bound} depends on the exhaustive range reported in~\cite{KK08};
+Theorem~\ref{thm:maximal} does not.
+
+\section{A cardinality certificate}
+
+For a triangle $T$ let $\Egp(T)$ denote the set of points at integral distance from all three vertices
+of $T$ and in general position with $T$ (the general-position condition is necessary for each point of
+an octagon individually, hence sound to impose pointwise). $\Egp(T)$ is finite and computable by
+Theorem~\ref{thm:method}.
+
+\begin{proposition}
+If $\lvert\Egp(T)\rvert<5$ then no integral general-position $8$-point set contains $T$.
+\end{proposition}
+
+\begin{proof}
+Such a set would consist of $T$ together with five further points, each lying in $\Egp(T)$.
+\end{proof}
+
+This is a proof rather than a failed search, and it is cheap: the count alone suffices. We computed
+and independently verified it for $394$ triangles of characteristic $2002$. Verification re-enumerates
+$\Egp(T)$ from the problem statement, sharing no code with the program that produced the certificates;
+the independent counts agreed in every case, and the verifier correctly \emph{refuses} triangles with
+$\lvert\Egp(T)\rvert\ge 5$, where the argument does not apply.
+
+\section{Remarks}
+
+The method is not specific to $n=7$: Theorem~\ref{thm:method} applies to any integral point set, and
+the cost is set by the two shortest edges at the chosen base vertex, not by the diameter. Two
+observations from the computations may be of independent interest.
+
+First, the minimum edge of the known extremal configurations grows sharply with $n$: $1,5,26,68$ for
+$n=3,4,5,6$, then $5780$ for H1 and $16637$ for H2. Any triangle of an integral heptagon therefore has
+all edges at least $5780$, which excludes small seeds from consideration.
+
+Second, among $63$ squarefree characteristics tested over $57{,}334$ seed triangles with sides at most
+$260$, only $c=2002$ produced a six-point configuration; every other characteristic stopped at five or
+fewer. The characteristic of both known heptagons is thus distinguished in this range, on $14\times$
+fewer samples than the characteristics it beat.
+
+\section{Reproduction}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+artifact & path\\
+\midrule
+method + closure driver & \texttt{oracle/kbk/engine/kk\_closure\_full\_exact.py}\\
+heptagon reconstruction & \texttt{oracle/kbk/engine/kk\_heptagon.py}\\
+closure receipts & \texttt{closure\_full\_exact\_\{H1,H1\_base540,H2\}.json}\\
+cardinality certificates & \texttt{oracle/evidence/intdist-certificates/} (394 files)\\
+independent verifier & \texttt{oracle.kernel.checkers.check\_intdist\_no\_octagon}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Evidence receipt: \texttt{sha256
+3c41ed8c959678eac586aa8ca316577a45bb284f0a2861b85bcfad5d7df189bd}.
+
+\begin{thebibliography}{KK08}
+
+\bibitem[AE45]{AE45}
+N.~H. Anning and P.~Erd\H{o}s,
+\emph{Integral distances},
+Bull. Amer. Math. Soc. \textbf{51} (1945), 598--600.
+
+\bibitem[Kem88]{Kem88}
+A.~Kemnitz,
+\emph{Punktmengen mit ganzzahligen Abst\"anden},
+Habilitationsschrift, TU Braunschweig, 1988.
+
+\bibitem[KK08]{KK08}
+T.~Kreisel and S.~Kurz,
+\emph{There are integral heptagons, no three points on a line, no four on a circle},
+Discrete Comput. Geom. \textbf{39} (2008), 786--790.
+\texttt{arXiv:0804.1303}.
+
+\end{thebibliography}
+
+\end{document}
