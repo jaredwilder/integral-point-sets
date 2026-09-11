@@ -4,6 +4,18 @@
 
 Author: Jared Wilder. First public timestamp: 2026-09-10. Papers dated 2026-07-24 and 2026-07-25.
 
+## There is a compile-ready preprint in this repository
+
+`papers/integral-heptagon-maximality.tex` is a complete `amsart` paper containing this theorem,
+its proof, and the maximality proposition it rests on. It builds with no external dependencies:
+
+```
+pdflatex integral-heptagon-maximality.tex    # run twice, for references
+```
+
+Every numerical value in it is reproduced from the receipts in its own Section 7. None was typed
+by hand. It has **not** been submitted anywhere.
+
 ## The result
 
 An *integral point set in general position* is a finite planar point set with all pairwise
